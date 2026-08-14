@@ -1,34 +1,36 @@
-# Florence Shift Update Mobile v1.1.1
+# Florence Shift Update Mobile v1.2.1
 
-This build fixes iPhone/Home Screen caching.
+## Changes
+- Weekly checklist output now says exactly:
+  - `Worked on weekly checklist`
+  - `Finished weekly checklist`
+- Added Walk-In milestone checkboxes:
+  - Reached 5 Walk-Ins
+  - Reached 10 Walk-Ins
+- Added Rebooking milestone checkboxes:
+  - Reached 5 Rebookings
+  - Reached 10 Rebookings
+- Checking 10 automatically checks 5.
+- Replaced Cash/Square player counts with repeatable transaction entries.
+- Each Cash or Square entry contains:
+  - Time
+  - Room
+  - What they bought
+- Removed Cash Total and Square Total.
+- Keeps all previous features including Rooms Ran, late starts, exclusions, deep cleans, training, shoutouts, and notes.
+- Keeps the cache-removal/update behavior from v1.1.1.
 
-## Important changes
-- Keeps all v1.1 features:
-  - Rooms Ran
-  - repeatable Walk-Ins
-  - repeatable Rebookings
-  - Cash / Square
-  - Weekly Checklist status
-  - Deep Clean checkboxes
-  - Shoutouts
-- Removes the old offline cache behavior.
-- Automatically unregisters the old service worker.
-- Deletes old cached app files.
-- Adds versioned CSS/JS URLs.
-- Shows `v1.1.1` in the top-right of the app so you can immediately confirm the update loaded.
+## Update your existing GitHub Pages app
+Replace all files in the existing repository with the files from this folder.
 
-## Replace these files in GitHub
-Upload/replace ALL files from this folder in the same repository.
+Then open your GitHub Pages URL in Safari with:
 
-After GitHub Pages redeploys, on the iPhone open the GitHub Pages address in Safari with:
-
-`?v=1.1.1`
-
-at the end.
+`?v=1.2.0`
 
 Example:
-`https://USERNAME.github.io/REPOSITORY/?v=1.1.1`
+`https://USERNAME.github.io/REPOSITORY/?v=1.2.0`
 
-Once you see `v1.1.1` at the top, close the Home Screen app and reopen it.
+You should see `v1.2.1` in the top-right corner.
 
-If the existing Home Screen icon still opens the old version, delete only the Home Screen icon and add the site to Home Screen again. You do NOT need to change the GitHub repository.
+## v1.2.1
+- Removed all example/placeholder text from input fields.

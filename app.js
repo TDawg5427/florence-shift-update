@@ -74,32 +74,46 @@ function generate(){
     });
   }
 
-  const cashPlayers = num('cashPlayers');
-  const squarePlayers = num('squarePlayers');
-  const cashTotal = text('cashTotal');
-  const squareTotal = text('squareTotal');
-
-  if(cashPlayers || squarePlayers || cashTotal || squareTotal){
+  if($('walkins5').checked || $('walkins10').checked){
     lines.push('');
-    lines.push('Payments:');
-    if(cashPlayers || cashTotal){
-      let s = `Cash: ${cashPlayers || 0} ${plural(cashPlayers,'player','players')}`;
-      if(cashTotal) s += ` - ${cashTotal}`;
-      lines.push(s);
-    }
-    if(squarePlayers || squareTotal){
-      let s = `Square: ${squarePlayers || 0} ${plural(squarePlayers,'player','players')}`;
-      if(squareTotal) s += ` - ${squareTotal}`;
-      lines.push(s);
-    }
+    const reached = [];
+    if($('walkins5').checked) reached.push('5');
+    if($('walkins10').checked) reached.push('10');
+    lines.push(`Walk-In Milestones: Reached ${reached.join(' and ')}`);
+  }
+
+  if($('rebookings5').checked || $('rebookings10').checked){
+    lines.push('');
+    const reached = [];
+    if($('rebookings5').checked) reached.push('5');
+    if($('rebookings10').checked) reached.push('10');
+    lines.push(`Rebooking Milestones: Reached ${reached.join(' and ')}`);
+  }
+
+  const cash = entries('cashRows').filter(x => x.time || x.purchase);
+  if(cash.length){
+    lines.push('');
+    lines.push('Cash:');
+    cash.forEach(x => {
+      lines.push(`${x.time || '?'} ${x.room || '?'} - ${x.purchase || 'Purchase not listed'}`);
+    });
+  }
+
+  const square = entries('squareRows').filter(x => x.time || x.purchase);
+  if(square.length){
+    lines.push('');
+    lines.push('Square:');
+    square.forEach(x => {
+      lines.push(`${x.time || '?'} ${x.room || '?'} - ${x.purchase || 'Purchase not listed'}`);
+    });
   }
 
   if($('weeklyCompleted').checked || $('weeklyWorked').checked){
     lines.push('');
     if($('weeklyCompleted').checked){
-      lines.push('Weekly Checklist: Completed');
+      lines.push('Finished weekly checklist');
     } else if($('weeklyWorked').checked){
-      lines.push('Weekly Checklist: Worked on');
+      lines.push('Worked on weekly checklist');
     }
   }
 
@@ -158,6 +172,8 @@ function generate(){
   }));
 }
 
+$('addCash').addEventListener('click', () => addFromTemplate('cashTemplate','cashRows'));
+$('addSquare').addEventListener('click', () => addFromTemplate('squareTemplate','squareRows'));
 $('addWalkin').addEventListener('click', () => addFromTemplate('walkinTemplate','walkinRows'));
 $('addRebooking').addEventListener('click', () => addFromTemplate('rebookingTemplate','rebookingRows'));
 $('addLate').addEventListener('click', () => addFromTemplate('lateTemplate','lateRows'));
@@ -167,6 +183,24 @@ $('generate').addEventListener('click', generate);
 document.querySelectorAll('input,select,textarea').forEach(el => {
   el.addEventListener('input', generate);
   el.addEventListener('change', generate);
+});
+
+
+$('walkins10').addEventListener('change', () => {
+  if($('walkins10').checked) $('walkins5').checked = true;
+  generate();
+});
+$('walkins5').addEventListener('change', () => {
+  if(!$('walkins5').checked) $('walkins10').checked = false;
+  generate();
+});
+$('rebookings10').addEventListener('change', () => {
+  if($('rebookings10').checked) $('rebookings5').checked = true;
+  generate();
+});
+$('rebookings5').addEventListener('change', () => {
+  if(!$('rebookings5').checked) $('rebookings10').checked = false;
+  generate();
 });
 
 $('weeklyCompleted').addEventListener('change', () => {
@@ -194,17 +228,22 @@ $('clear').addEventListener('click', () => {
 
   [
     'shiftStart','shiftEnd','escapes','games','checklists',
-    'cashPlayers','squarePlayers','cashTotal','squareTotal',
     'merch','training','shoutouts','notes'
   ].forEach(id => $(id).value = '');
 
   $('walkinRows').innerHTML = '';
   $('rebookingRows').innerHTML = '';
+  $('cashRows').innerHTML = '';
+  $('squareRows').innerHTML = '';
   $('lateRows').innerHTML = '';
   $('exclusionRows').innerHTML = '';
 
   $('weeklyWorked').checked = false;
   $('weeklyCompleted').checked = false;
+  $('walkins5').checked = false;
+  $('walkins10').checked = false;
+  $('rebookings5').checked = false;
+  $('rebookings10').checked = false;
   document.querySelectorAll('.deepClean').forEach(x => x.checked = false);
 
   generate();

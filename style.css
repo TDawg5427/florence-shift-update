@@ -56,3 +56,11 @@ pre{white-space:pre-wrap;background:#07101f;border:1px solid var(--line);border-
 }
 
 .version{text-align:center;color:var(--muted);font-size:10px;font-weight:800;margin-top:5px}
+
+.milestones{
+  margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);
+}
+.mini-label{
+  color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;
+  letter-spacing:.12em;margin-bottom:8px;
+}

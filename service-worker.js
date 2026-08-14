@@ -1,4 +1,4 @@
-// v1.1.1: legacy cache cleanup service worker.
+// v1.2.1: no persistent offline cache. This file only cleans up older app caches.
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', event => {
   event.waitUntil(

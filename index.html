@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#15223b" />
+  <title>Florence Shift Update</title>
+  <link rel="manifest" href="manifest.json?v=1.3.0" />
+  <link rel="stylesheet" href="style.css?v=1.3.0" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="app-badge">FLORENCE • SHIFT TOOL</div>
+        <h1>Shift Update</h1>
+        <p>Fill it out, copy it, and paste it into Slack.</p>
+      </div>
+      <div class="hero-side">
+        <div class="status" id="status">Ready</div>
+        <div class="version">v1.3.0</div>
+      </div>
+      <div class="bubble bubble-one"></div>
+      <div class="bubble bubble-two"></div>
+      <div class="bubble bubble-three"></div>
+    </header>
+
+    <section class="card accent-lavender">
+      <h2><span class="section-icon lavender">01</span> Shift</h2>
+      <div class="grid two">
+        <label>
+          <span>Manager</span>
+          <input id="manager" autocomplete="name" />
+        </label>
+        <label>
+          <span>Day</span>
+          <select id="day">
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+        </label>
+      </div>
+      <div class="grid two">
+        <label><span>Shift Start</span><input id="shiftStart" inputmode="text" /></label>
+        <label><span>Shift End</span><input id="shiftEnd" inputmode="text" /></label>
+      </div>
+    </section>
+
+    <section class="card accent-blue">
+      <h2><span class="section-icon blue">02</span> Numbers</h2>
+      <div class="grid three">
+        <label><span>Escapes</span><input id="escapes" type="number" min="0" inputmode="numeric" /></label>
+        <label><span>Rooms Ran</span><input id="games" type="number" min="0" inputmode="numeric" /></label>
+        <label><span>Checklists</span><input id="checklists" type="number" min="0" inputmode="numeric" /></label>
+      </div>
+    </section>
+
+    <section class="card accent-pink">
+      <div class="section-head">
+        <h2><span class="section-icon pink">03</span> Walk-Ins</h2>
+        <button class="add" id="addWalkin" type="button">+ Add</button>
+      </div>
+      <div id="walkinRows" class="stack"></div>
+    </section>
+
+    <section class="card accent-peach">
+      <div class="section-head">
+        <h2><span class="section-icon peach">04</span> Rebookings</h2>
+        <button class="add" id="addRebooking" type="button">+ Add</button>
+      </div>
+      <div id="rebookingRows" class="stack"></div>
+    </section>
+
+    <section class="card accent-mint">
+      <div class="section-head">
+        <h2><span class="section-icon mint">05</span> Cash</h2>
+        <button class="add" id="addCash" type="button">+ Add</button>
+      </div>
+      <div id="cashRows" class="stack"></div>
+    </section>
+
+    <section class="card accent-blue">
+      <div class="section-head">
+        <h2><span class="section-icon blue">06</span> Square</h2>
+        <button class="add" id="addSquare" type="button">+ Add</button>
+      </div>
+      <div id="squareRows" class="stack"></div>
+    </section>
+
+    <section class="card accent-lavender">
+      <h2><span class="section-icon lavender">07</span> Weekly Checklist</h2>
+      <div class="check-grid">
+        <label class="check-option">
+          <input id="weeklyWorked" type="checkbox" />
+          <span>Worked on weekly checklist</span>
+        </label>
+        <label class="check-option">
+          <input id="weeklyCompleted" type="checkbox" />
+          <span>Finished weekly checklist</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card accent-mint">
+      <h2><span class="section-icon mint">08</span> Deep Cleans</h2>
+      <div class="check-grid deep-clean-grid">
+        <label class="check-option"><input class="deepClean" type="checkbox" value="A8" /><span>A8</span></label>
+        <label class="check-option"><input class="deepClean" type="checkbox" value="BB" /><span>BB</span></label>
+        <label class="check-option"><input class="deepClean" type="checkbox" value="ESP" /><span>ESP</span></label>
+        <label class="check-option"><input class="deepClean" type="checkbox" value="FTF" /><span>FTF</span></label>
+        <label class="check-option"><input class="deepClean" type="checkbox" value="Lobby" /><span>Lobby</span></label>
+        <label class="check-option"><input class="deepClean" type="checkbox" value="Bathrooms" /><span>Bathrooms</span></label>
+        <label class="check-option"><input class="deepClean" type="checkbox" value="Host Room" /><span>Host Room</span></label>
+      </div>
+    </section>
+
+    <section class="card accent-peach">
+      <div class="section-head">
+        <h2><span class="section-icon peach">09</span> Late Starts</h2>
+        <button class="add" id="addLate" type="button">+ Add</button>
+      </div>
+      <div id="lateRows" class="stack"></div>
+    </section>
+
+    <section class="card accent-pink">
+      <div class="section-head">
+        <h2><span class="section-icon pink">10</span> Exclusions</h2>
+        <button class="add" id="addExclusion" type="button">+ Add</button>
+      </div>
+      <div id="exclusionRows" class="stack"></div>
+    </section>
+
+    <section class="card accent-lavender">
+      <h2><span class="section-icon lavender">11</span> Other Stuff</h2>
+      <label><span>Merch Sold</span><textarea id="merch"></textarea></label>
+      <label><span>Training</span><textarea id="training"></textarea></label>
+      <label><span>Shoutouts</span><textarea id="shoutouts"></textarea></label>
+      <label><span>Notes</span><textarea id="notes"></textarea></label>
+    </section>
+
+    <section class="card accent-blue output-card">
+      <div class="section-head">
+        <h2><span class="section-icon blue">12</span> Slack Update</h2>
+        <button class="secondary" id="generate" type="button">Refresh</button>
+      </div>
+      <pre id="output"></pre>
+      <div class="actions">
+        <button class="primary" id="copy" type="button">Copy Shift Update</button>
+        <button class="danger" id="clear" type="button">Clear Shift</button>
+      </div>
+    </section>
+  </main>
+
+
+
+  <template id="cashTemplate">
+    <div class="entry">
+      <div class="grid two">
+        <label><span>Time</span><input data-field="time" inputmode="text" /></label>
+        <label><span>Room</span>
+          <select data-field="room">
+            <option>A8</option><option>BB</option><option>ESP</option><option>FTF</option>
+          </select>
+        </label>
+      </div>
+      <label><span>What They Bought</span><input data-field="purchase" /></label>
+      <button class="remove" type="button">Remove</button>
+    </div>
+  </template>
+
+  <template id="squareTemplate">
+    <div class="entry">
+      <div class="grid two">
+        <label><span>Time</span><input data-field="time" inputmode="text" /></label>
+        <label><span>Room</span>
+          <select data-field="room">
+            <option>A8</option><option>BB</option><option>ESP</option><option>FTF</option>
+          </select>
+        </label>
+      </div>
+      <label><span>What They Bought</span><input data-field="purchase" /></label>
+      <button class="remove" type="button">Remove</button>
+    </div>
+  </template>
+
+  <template id="walkinTemplate">
+    <div class="entry">
+      <div class="grid two">
+        <label><span>Employee</span><input data-field="employee" /></label>
+        <label><span>Walk-Ins</span><input data-field="count" type="number" min="1" inputmode="numeric" /></label>
+      </div>
+      <div class="entry-milestones">
+        <div class="mini-label">Employee Milestone</div>
+        <div class="check-grid">
+          <label class="check-option"><input data-field="at5" type="checkbox" /><span>At 5</span></label>
+          <label class="check-option"><input data-field="at10" type="checkbox" /><span>At 10</span></label>
+        </div>
+      </div>
+      <button class="remove" type="button">Remove</button>
+    </div>
+  </template>
+
+  <template id="rebookingTemplate">
+    <div class="entry">
+      <div class="grid two">
+        <label><span>Employee</span><input data-field="employee" /></label>
+        <label><span>Rebookings</span><input data-field="count" type="number" min="1" inputmode="numeric" /></label>
+      </div>
+      <div class="entry-milestones">
+        <div class="mini-label">Employee Milestone</div>
+        <div class="check-grid">
+          <label class="check-option"><input data-field="at5" type="checkbox" /><span>At 5</span></label>
+          <label class="check-option"><input data-field="at10" type="checkbox" /><span>At 10</span></label>
+        </div>
+      </div>
+      <button class="remove" type="button">Remove</button>
+    </div>
+  </template>
+
+  <template id="lateTemplate">
+    <div class="entry">
+      <div class="grid three">
+        <label><span>Time</span><input data-field="time" inputmode="text" /></label>
+        <label><span>Room</span>
+          <select data-field="room">
+            <option>A8</option><option>BB</option><option>ESP</option><option>FTF</option>
+          </select>
+        </label>
+        <label><span>Minutes Late</span><input data-field="minutes" type="number" min="11" inputmode="numeric" /></label>
+      </div>
+      <label><span>Short Reason</span><input data-field="reason" /></label>
+      <button class="remove" type="button">Remove</button>
+    </div>
+  </template>
+
+  <template id="exclusionTemplate">
+    <div class="entry">
+      <div class="grid two">
+        <label><span>Time</span><input data-field="time" inputmode="text" /></label>
+        <label><span>Room</span>
+          <select data-field="room">
+            <option>A8</option><option>BB</option><option>ESP</option><option>FTF</option>
+          </select>
+        </label>
+      </div>
+      <label><span>Summary</span><input data-field="reason" /></label>
+      <button class="remove" type="button">Remove</button>
+    </div>
+  </template>
+
+
+  <script>
+    // v1.3.0 migration: remove the old offline service worker that could trap older app files.
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        try {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(reg => reg.unregister()));
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map(key => caches.delete(key)));
+          }
+        } catch (e) {
+          console.log('Cache cleanup skipped:', e);
+        }
+      });
+    }
+  </script>
+
+  <script src="app.js?v=1.3.0"></script>
+</body>
+</html>
